@@ -1,0 +1,65 @@
+---
+import Container from "./Container.astro";
+import Button from "./Button.astro";
+
+---
+
+<header class="bg-[var(--my-color-secondary)]">
+  <Container class="flex flex-col lg:flex-row pt-15 lg:pt-6">
+    <div
+      class="header-left flex-grow flex-shrink-1 lg:basis-[44%] xl:basis-[46%] content-center "
+    >
+      <div
+        class="header-top flex flex-col  l:items-center l:text-center lg:items-start lg:text-start max-w-130 mx-auto"
+      >
+        <h1 class="mb-7">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+        <p class="mb-6 text-[var(--my-color-text-secondary)]">
+          Browse through our diverse range of meticulously crafted garments,
+          designed to bring out your individuality and cater to your sense of
+          style.
+        </p>
+        <Button class="btn-neutral w-full md:w-auto py-6   md:px-15 md:py-6  lg:px-12  "
+          >Shop Now</Button
+        >
+      </div>
+      <div class="header-bottom mt-8">
+        <ul
+          class="flex flex-wrap justify-center lg:justify-between lg:max-w-130 divide-gray-300 divide-x-1 divide-y-0 gap-y-3"
+        >
+          <li class="stats-item">
+            <strong>200+</strong>
+            <small class="text-[var(--my-color-text-secondary)]"
+              >International Brands</small
+            >
+          </li>
+          <li class="stats-item border-0 sm:border-r-1">
+            <strong>2,000+</strong>
+            <small
+              class="whitespace-nowrap text-[var(--my-color-text-secondary)]"
+              >High-Quality Products</small
+            >
+          </li>
+          <li class="stats-item">
+            <strong>30,000+</strong>
+            <small class="text-[var(--my-color-text-secondary)]"
+              >Happy Customers</small
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="header-right flex-grow flex-shrink-1 lg:basis-[35%] xl:basis-[54%] self-end"
+    >
+      <img src="/src/img/Untitled-2.png" alt="" class="w-full" />
+    </div>
+  </Container>
+</header>
+
+<style>
+  @reference "tailwindcss";
+
+  .stats-item {
+    @apply flex flex-col   px-4 lg:last:pl-4   first:pl-0 xl:last:pr-0 justify-center items-center lg:items-start w-1/2 sm:w-auto ;
+  }
+</style>

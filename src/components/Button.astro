@@ -1,0 +1,5 @@
+---
+const { class: className, ...attrs } = Astro.props;
+---
+
+<button class={`btn  rounded-full ${className}`} {...attrs}><slot /></button>

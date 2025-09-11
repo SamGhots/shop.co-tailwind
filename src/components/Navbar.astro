@@ -1,0 +1,35 @@
+---
+import Container from "./Container.astro";
+---
+
+<nav>
+  <Container class="flex justify-between items-center py-4 gap-8">
+    <div class="logo">
+      <a href=""><img src="src/img/SHOP.CO.svg" alt="logo" /></a>
+    </div>
+    <div class="links">
+      <ul class="nav-links flex items-center gap-6">
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Services</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+    </div>
+    <div  class="search grow-1 relative">
+      <input
+        type="search"
+        placeholder="Search for products..."
+        class="w-full bg-gray-100 pl-10 pr-5 py-3 rounded-full"
+      />
+      <i
+        class="fa-solid fa-magnifying-glass absolute top-1/2 left-3 -translate-y-1/2 text-xl text-gray-400"
+      ></i>
+    </div>
+    <div class="account-links">
+      <ul class="flex flex-row gap-3 text-xl">
+        <li><a href="" aria-label="Shopping Cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        <li><a href=""  aria-label="User Account"><i class="fa-regular fa-user"></i></a></li>
+      </ul>
+    </div>
+  </Container>
+</nav>
