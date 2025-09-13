@@ -1,11 +1,10 @@
 ---
-
 import "../styles/style.css";
 import PromotionBar from "../components/PromotionBar.astro";
 import Navbar from "../components/Navbar.astro";
 import Header from "../components/Header.astro";
 import Brands from "../components/brands.astro";
-
+import NewArrivals from "../components/newArrivals.astro";
 ---
 
 <!doctype html>
@@ -13,12 +12,15 @@ import Brands from "../components/brands.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
     <title>Base Layout</title>
   </head>
   <body>
-  <Header/>
-    <Brands/>
-
+    <Header />
+    <Brands />
+    <NewArrivals />
   </body>
 </html>

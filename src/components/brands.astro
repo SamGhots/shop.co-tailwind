@@ -5,7 +5,7 @@ import Container from "./Container.astro";
 <section class="bg-black">
   <Container class="py-10">
     <ul class="brand-list">
-      <li class="brand-item ">
+      <li class="brand-item">
         <a href=""><img src="src/img/brand/versace.svg" alt="Versace" /></a>
       </li>
       <li class="brand-item">
@@ -18,26 +18,23 @@ import Container from "./Container.astro";
         <a href=""><img src="src/img/brand/prada.svg" alt="Prada" /></a>
       </li>
       <li class="brand-item">
-        <a href=""><img src="src/img/brand/calvinKlein.svg" alt="Calvin Klein" /></a>
+        <a href=""
+          ><img src="src/img/brand/calvinKlein.svg" alt="Calvin Klein" /></a
+        >
       </li>
-      
     </ul>
   </Container>
 </section>
 
 <style>
   @reference "tailwindcss";
-  .brand-list{
-    @apply  
-     flex flex-wrap gap-x-10  gap-y-5 md:justify-center lg:justify-between ;
+  .brand-list {
+    @apply flex flex-wrap gap-x-10  gap-y-5 md:justify-center lg:justify-between;
   }
-.brand-item {
- 
-}
+  .brand-item {
+  }
 
-.brand-item img {
-@apply h-[clamp(20px,3.5vw,32px)]  object-contain block  ;
-}
-
-
+  .brand-item img {
+    @apply h-[clamp(20px,3.5vw,32px)]  object-contain block;
+  }
 </style>

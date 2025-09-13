@@ -1,0 +1,36 @@
+---
+import Product from "./ProductCard.astro";
+import Container from "./Container.astro";
+---
+
+<section class="">
+  <Container class="py-6">
+    <h1 class="uppercase my-10 text-center">New Arrivals</h1>
+    <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ">
+      <Product
+        title="T-SHIRT WITH TAPE DETAILS"
+        img="/src/img/products/image1.png"
+        star="4.5"
+        price="$120"
+      />
+      <Product
+        title="SKINNY FIT JEANS"
+        img="/src/img/products/image2.png"
+        star="3.5"
+        price="$240"
+      />
+      <Product
+        title="CHECKERED SHIRT"
+        img="/src/img/products/image3.png"
+        star="4.5"
+        price="$180"
+      />
+      <Product
+        title="SLEEVE STRIPED T-SHIRT"
+        img="/src/img/products/image4.png"
+        star="4.5"
+        price="$130"
+      />
+    </ul>
+  </Container>
+</section>
