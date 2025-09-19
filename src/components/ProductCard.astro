@@ -1,5 +1,5 @@
 ---
-const { title, img, star, price } = Astro.props;
+const { title, img, star, fullPrice, discountPercentage } = Astro.props;
 // ฟังก์ชันสำหรับสร้าง HTML สัญลักษณ์ดาวตามค่าคะแนนที่รับเข้ามา
 function getStarRating(rating: number) {
   // สร้างตัวแปร string เปล่าเพื่อเก็บสัญลักษณ์ดาว
@@ -8,14 +8,19 @@ function getStarRating(rating: number) {
   const fullStars = Math.floor(rating);
   // ตรวจสอบว่ามีค่าเศษเหลือจากการหารหรือไม่ เพื่อเช็คว่ามีครึ่งดาว
   const hasHalfStar = rating % 1 !== 0;
+
+  // เปลี่ยนจากอีโมจิ '⭐️' เป็นแท็ก img ที่อ้างอิงถึงไฟล์ SVG
+  const fullStarSVG = `<img src="./src/img/icons/Star.svg" alt="Full Star" style="width: 20px; height: 20px;">`; // ปรับขนาดตามต้องการ
+  // สมมติว่ามีไฟล์สำหรับครึ่งดาว
+  const halfStarSVG = `<img src="./src/img/icons/HalfStar.svg" alt="Half Star" style="width: 20px; height: 20px;">`;
   // วนลูปตามจำนวนดาวเต็มที่คำนวณได้
   for (let i = 0; i < fullStars; i++) {
     // เพิ่มสัญลักษณ์ดาวเต็ม '⭐️' เข้าไปใน string
-    stars += "⭐️";
+    stars += fullStarSVG;
   }
   // หากมีครึ่งดาว ให้เพิ่มสัญลักษณ์ดาวครึ่ง '🌗' เข้าไป
   if (hasHalfStar) {
-    stars += "🌗";
+    stars += halfStarSVG;
   }
   // ส่งค่า string ที่มีสัญลักษณ์ดาวทั้งหมดกลับไป
   return stars;
@@ -26,12 +31,37 @@ function getStarRating(rating: number) {
   <div class="h-70">
     <img class="w-full rounded-2xl h-70 object-cover" src={img} alt={title} />
   </div>
-  <h3 class="mt-2 font-bold text-[clamp(1rem,2vw,1.25rem)]">{title}</h3>
-  <p class="mt-2">
-    <span class="">{getStarRating(star)}</span>
-    <span>
+  <h3
+    class="mt-2 font-bold text-[clamp(1rem,2vw,1.25rem)] truncate"
+    title={title}
+  >
+    {title}
+  </h3>
+  <p class="mt-2 flex gap-1">
+    <span class="flex" set:html={getStarRating(star)} /><span>
       <span>{star}</span>/<span class="text-gray-500">5</span>
     </span>
   </p>
-  <p class="mt-2 text-2xl font-bold">{price}</p>
+  <section>
+    {
+      discountPercentage > 0 ? (
+        <div class="flex items-center gap-2 mt-2">
+          {/* ราคาขาย */}
+          <p class="text-2xl font-bold">
+            ${(fullPrice - fullPrice * (discountPercentage / 100)).toFixed(2)}
+          </p>
+          {/* ราคาเต็ม (ขีดฆ่า) */}
+          <p class=" text-2xl font-bold  text-gray-500 line-through">
+            ${fullPrice}
+          </p>
+          {/* ส่วนลด */}
+          <p class="bg-red-100 rounded-full text-red-700 w-fit px-2 py-0.5">
+            -{discountPercentage}%
+          </p> 
+        </div>
+      ) : (
+        <p class="mt-2 text-2xl font-bold">${fullPrice}</p>
+      )
+    }
+  </section>
 </li>

@@ -67,12 +67,5 @@ small {
 Button{
   font-size: clamp(0.875rem, 2vw, 1rem);
 }
-p {
 
- 
-}
 
-h3{
-      min-height: 3rem;
-    overflow: hidden;
-}
