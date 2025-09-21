@@ -4,15 +4,15 @@ import Button from "./Button.astro";
 ---
 
 <header class="bg-[var(--my-color-secondary)]">
-  <Container class="flex flex-col lg:flex-row pt-15 lg:pt-6">
+  <Container class="flex flex-col lg:flex-row pt-8 lg:pt-6">
     <div
       class="header-left flex-grow flex-shrink-1 lg:basis-[44%] xl:basis-[46%] content-center"
     >
       <div
-        class="header-top flex flex-col   lg:items-start lg:text-start  md:max-w-130  md:mx-auto   lg:mx-0 md:items-center md:text-center"
+        class="header-top flex flex-col   lg:items-start lg:text-start  md:max-w-140   md:mx-auto   lg:mx-0 md:items-center md:text-center"
       >
-        <h1 class="mb-7">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
-        <p class="mb-6 text-[var(--my-color-text-secondary)]">
+        <h1 class="mb-4 text-[clamp(1.8rem,3.5vw,4rem)]   sm:text-[clamp(2.4rem,3.5vw,4rem)] lg:text-[clamp(1.8rem,3.2vw,4rem)]    leading-[1]">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+        <p class="mb-4 text-[var(--my-color-text-secondary)]">
           Browse through our diverse range of meticulously crafted garments,
           designed to bring out your individuality and cater to your sense of
           style.
@@ -48,10 +48,8 @@ import Button from "./Button.astro";
         </ul>
       </div>
     </div>
-    <div
-      class="header-right flex-grow flex-shrink-1 lg:basis-[35%] xl:basis-[54%] self-end"
-    >
-      <img src="/src/img/Untitled-2.png" alt="" class="w-full" />
+    <div class="header-right flex-grow flex-shrink-1 lg:basis-[35%] xl:basis-[54%] self-end ">
+      <img src="/src/img/Untitled-2.png" alt="" class="w-full object-fill" />
     </div>
   </Container>
 </header>

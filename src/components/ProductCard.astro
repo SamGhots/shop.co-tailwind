@@ -47,20 +47,20 @@ function getStarRating(rating: number) {
       discountPercentage > 0 ? (
         <div class="flex items-center gap-2 mt-2">
           {/* ราคาขาย */}
-          <p class="text-2xl font-bold">
+          <p class="text-[clamp(1.25rem,3vw,1.5rem)] font-bold">
             ${(fullPrice - fullPrice * (discountPercentage / 100)).toFixed(2)}
           </p>
           {/* ราคาเต็ม (ขีดฆ่า) */}
-          <p class=" text-2xl font-bold  text-gray-500 line-through">
+          <p class=" text-[clamp(1.25rem,3vw,1.5rem)] font-bold  text-gray-500 line-through">
             ${fullPrice}
           </p>
           {/* ส่วนลด */}
-          <p class="bg-red-100 rounded-full text-red-700 w-fit px-2 py-0.5">
+          <p class="bg-red-100 rounded-full text-red-700 w-fit px-4 py-1 text-[clamp(0.625rem,3vw,0.75rem)]">
             -{discountPercentage}%
           </p> 
         </div>
       ) : (
-        <p class="mt-2 text-2xl font-bold">${fullPrice}</p>
+        <p class="mt-2 text-[clamp(1.25rem,3vw,1.5rem)] font-bold  ">${fullPrice}</p>
       )
     }
   </section>

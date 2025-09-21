@@ -3,19 +3,26 @@ import Container from "./Container.astro";
 ---
 
 <nav>
-  <Container class="flex justify-between items-center py-4 gap-8">
+  <Container
+    class="flex justify-between items-center py-3 gap-3 lg:py-6 lg:gap-8 h-18"
+  >
+    <div
+      class="back-button hidden rounded-full active:bg-[var(--my-color-secondary)]  p-2 text-2xl"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
     <div class="logo">
       <a href=""><img src="src/img/logo/SHOP.CO.svg" alt="logo" /></a>
     </div>
     <div class="links">
-      <ul class="nav-links flex items-center gap-6">
+      <ul class="nav-links items-center hidden lg:flex gap-6">
         <li><a href="">Home</a></li>
         <li><a href="">About</a></li>
         <li><a href="">Services</a></li>
         <li><a href="">Contact</a></li>
       </ul>
     </div>
-    <div  class="search grow-1 relative">
+    <div class="search grow-1 relative hidden lg:flex">
       <input
         type="search"
         placeholder="Search for products..."
@@ -26,10 +33,49 @@ import Container from "./Container.astro";
       ></i>
     </div>
     <div class="account-links">
-      <ul class="flex flex-row gap-3 text-xl">
-        <li><a href="" aria-label="Shopping Cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-        <li><a href=""  aria-label="User Account"><i class="fa-regular fa-user"></i></a></li>
+      <ul class="flex flex-row gap-0 lg:gap-3 text-xl">
+        <li
+          class="inline-block magnifying-glass-icon cursor-pointer active:bg-[var(--my-color-secondary)] rounded-full p-2"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </li>
+        <li class=" rounded-full p-2">
+          <a href="" aria-label="Shopping Cart"
+            ><i class="fa-solid fa-cart-shopping"></i></a
+          >
+        </li>
+        <li class=" rounded-full p-2">
+          <a href="" aria-label="User Account"
+            ><i class="fa-regular fa-user"></i></a
+          >
+        </li>
       </ul>
     </div>
   </Container>
 </nav>
+
+<script>
+  const magniFyingGlassIcon = document.querySelector(".magnifying-glass-icon");
+  const searchInput = document.querySelector(".search");
+  const logo = document.querySelector(".logo");
+  const accountLinks = document.querySelector(".account-links");
+  const backButton = document.querySelector(".back-button");
+
+// สร้างฟังก์ชันรวมเพื่อจัดการ logic
+const toggleSearch = () => {
+    // ใช้ optional chaining (?) เพื่อป้องกัน error
+    searchInput?.classList.toggle("hidden");
+    logo?.classList.toggle("hidden");
+    accountLinks?.classList.toggle("hidden");
+    backButton?.classList.toggle("hidden");
+};
+
+// ตรวจสอบว่ามี magnifyingGlassIcon และ backButton ก่อนที่จะเพิ่ม Event Listener
+if (magniFyingGlassIcon) {
+    magniFyingGlassIcon.addEventListener("click", toggleSearch);
+}
+
+if (backButton) {
+    backButton.addEventListener("click", toggleSearch);
+}
+</script>
