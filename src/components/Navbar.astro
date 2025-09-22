@@ -4,47 +4,78 @@ import Container from "./Container.astro";
 
 <nav>
   <Container
-    class="flex justify-between items-center py-3 gap-3 lg:py-6 lg:gap-8 h-18"
+    class="flex lg:justify-between items-center py-3 gap-3 lg:py-6 lg:gap-8 h-18"
   >
+    <!--Hamburger Menu-->
+    <button
+      class="navbar-toggle flex justify-center items-center lg:hidden cursor-pointer "
+      aria-label="Toggle navigation"
+    >
+      <i class="fa-solid fa-bars text-2xl"></i>
+    </button>
+    <!-- Back arrow -->
     <div
-      class="back-button hidden rounded-full active:bg-[var(--my-color-secondary)]  p-2 text-2xl"
+      class="back-button text-2xl hidden p-2 rounded-full active:bg-[var(--my-color-secondary)]  "
     >
       <i class="fa-solid fa-arrow-left"></i>
     </div>
+    <!-- brand logo -->
     <div class="logo">
       <a href=""><img src="src/img/logo/SHOP.CO.svg" alt="logo" /></a>
     </div>
-    <div class="links">
-      <ul class="nav-links items-center hidden lg:flex gap-6">
-        <li><a href="">Home</a></li>
-        <li><a href="">About</a></li>
-        <li><a href="">Services</a></li>
-        <li><a href="">Contact</a></li>
+    <!-- menu links -->
+    <div class="menu-links  lg:flex hidden ">
+      <ul class="nav-links lg:flex  items-center gap-6">
+        <li class="nav-link group relative">
+          <a href="">Home</a>
+          <i
+            class="fa-solid fa-chevron-down transform transition-all duration-300 group-hover:rotate-180"
+          ></i>
+           <ul
+            class="dropdown-menu
+              absolute top-[100%] left-[-16px]
+              max-w-[200px]
+              whitespace-nowrap
+              bg-white rounded-[10px]
+              shadow-xl/20 inset-shadow-2xs opacity-0 invisible
+              translate-y-0 transition-all duration-300 ease-in-out
+              group-hover:translate-y-1 group-hover:opacity-100 group-hover:visible overflow-hidden"
+          >
+            <li class="dropdown-menu-item"><a href="#">Blog sub Menu 1 </a></li>
+            <li class="dropdown-menu-item"><a href="#">Blog sub Menu 2</a></li>
+            <li class="dropdown-menu-item"><a href="#">Blog sub Menu 3</a></li>
+          </ul>
+        </li>
+        <li class="nav-link"><a href="">About</a></li>
+        <li class="nav-link"><a href="">Services</a></li>
+        <li class="nav-link"><a href="">Contact</a></li>
       </ul>
     </div>
-    <div class="search grow-1 relative hidden lg:flex">
+    <!-- input search -->
+    <div class="search lg:flex hidden  relative grow-1  ">
       <input
         type="search"
         placeholder="Search for products..."
-        class="w-full bg-gray-100 pl-10 pr-5 py-3 rounded-full"
+        class="w-full pl-10 pr-5 py-3 bg-gray-100 rounded-full"
       />
       <i
         class="fa-solid fa-magnifying-glass absolute top-1/2 left-3 -translate-y-1/2 text-xl text-gray-400"
       ></i>
     </div>
-    <div class="account-links">
+    <!-- icons links -->
+    <div class="icons-links ml-auto">
       <ul class="flex flex-row gap-0 lg:gap-3 text-xl">
         <li
-          class="inline-block magnifying-glass-icon cursor-pointer active:bg-[var(--my-color-secondary)] rounded-full p-2"
+          class="magnifying-glass-icon inline-block p-2  rounded-full  active:bg-[var(--my-color-secondary)] cursor-pointer"
         >
           <i class="fa-solid fa-magnifying-glass"></i>
         </li>
-        <li class=" rounded-full p-2">
+        <li class="p-2 rounded-full">
           <a href="" aria-label="Shopping Cart"
             ><i class="fa-solid fa-cart-shopping"></i></a
           >
         </li>
-        <li class=" rounded-full p-2">
+        <li class="p-2 rounded-full">
           <a href="" aria-label="User Account"
             ><i class="fa-regular fa-user"></i></a
           >
@@ -58,24 +89,37 @@ import Container from "./Container.astro";
   const magniFyingGlassIcon = document.querySelector(".magnifying-glass-icon");
   const searchInput = document.querySelector(".search");
   const logo = document.querySelector(".logo");
-  const accountLinks = document.querySelector(".account-links");
+  const accountLinks = document.querySelector(".icons-links");
   const backButton = document.querySelector(".back-button");
+  const navbarToggle = document.querySelector(".navbar-toggle");
 
-// สร้างฟังก์ชันรวมเพื่อจัดการ logic
-const toggleSearch = () => {
+  // สร้างฟังก์ชันรวมเพื่อจัดการ logic
+  const toggleSearch = () => {
     // ใช้ optional chaining (?) เพื่อป้องกัน error
     searchInput?.classList.toggle("hidden");
     logo?.classList.toggle("hidden");
     accountLinks?.classList.toggle("hidden");
     backButton?.classList.toggle("hidden");
-};
+    navbarToggle?.classList.toggle("hidden");
+  };
 
-// ตรวจสอบว่ามี magnifyingGlassIcon และ backButton ก่อนที่จะเพิ่ม Event Listener
-if (magniFyingGlassIcon) {
+  // ตรวจสอบว่ามี magnifyingGlassIcon และ backButton ก่อนที่จะเพิ่ม Event Listener
+  if (magniFyingGlassIcon) {
     magniFyingGlassIcon.addEventListener("click", toggleSearch);
-}
+  }
 
-if (backButton) {
+  if (backButton) {
     backButton.addEventListener("click", toggleSearch);
-}
+  }
 </script>
+
+<style>
+  @import "tailwindcss";
+  .dropdown-menu-item{
+    @apply hover:bg-[var(--my-color-secondary)] ;
+  }
+  .dropdown-menu-item a {
+    @apply block p-3 hover:bg-[var(--my-color-secondary)] ;
+  }
+
+</style>
