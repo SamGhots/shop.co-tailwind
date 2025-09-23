@@ -7,15 +7,14 @@ import Container from "./Container.astro";
     class="flex lg:justify-between items-center py-3 gap-3 lg:py-6 lg:gap-8 h-18"
   >
     <!--Hamburger Menu-->
-    <button
-      class="navbar-toggle flex justify-center items-center lg:hidden cursor-pointer "
-      aria-label="Toggle navigation"
-    >
-      <i class="fa-solid fa-bars text-2xl"></i>
-    </button>
+ <div class="hamburger-menu-toggle flex flex-col justify-center items-center cursor-pointer">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
     <!-- Back arrow -->
     <div
-      class="back-button text-2xl hidden p-2 rounded-full active:bg-[var(--my-color-secondary)]  "
+      class="back-button text-2xl hidden p-2 rounded-full active:bg-[var(--my-color-secondary)]"
     >
       <i class="fa-solid fa-arrow-left"></i>
     </div>
@@ -24,14 +23,33 @@ import Container from "./Container.astro";
       <a href=""><img src="src/img/logo/SHOP.CO.svg" alt="logo" /></a>
     </div>
     <!-- menu links -->
-    <div class="menu-links  lg:flex hidden ">
-      <ul class="nav-links lg:flex  items-center gap-6">
+    <div
+      class="menu-links
+   menu-links
+    fixed
+    top-0
+    right-0
+    w-[400px]
+    h-full
+    z-50
+    p-4
+    invisible
+    overflow-y-auto
+    translate-x-full
+    transition-all
+    duration-300
+    bg-[var(--my-color-accent)]
+    text-[var(--my-color-secondary)]
+    lg:flex"
+    >
+      <i class="fa-solid fa-xmark close-hamburger-menu"></i>
+      <ul class="nav-links lg:flex items-center gap-6">
         <li class="nav-link group relative">
           <a href="">Home</a>
           <i
             class="fa-solid fa-chevron-down transform transition-all duration-300 group-hover:rotate-180"
           ></i>
-           <ul
+          <ul
             class="dropdown-menu
               absolute top-[100%] left-[-16px]
               max-w-[200px]
@@ -52,7 +70,7 @@ import Container from "./Container.astro";
       </ul>
     </div>
     <!-- input search -->
-    <div class="search lg:flex hidden  relative grow-1  ">
+    <div class="search lg:flex hidden relative grow-1">
       <input
         type="search"
         placeholder="Search for products..."
@@ -65,17 +83,15 @@ import Container from "./Container.astro";
     <!-- icons links -->
     <div class="icons-links ml-auto">
       <ul class="flex flex-row gap-0 lg:gap-3 text-xl">
-        <li
-          class="magnifying-glass-icon inline-block p-2  rounded-full  active:bg-[var(--my-color-secondary)] cursor-pointer"
-        >
+        <li class="magnifying-glass-icon icons-link-item lg:hidden">
           <i class="fa-solid fa-magnifying-glass"></i>
         </li>
-        <li class="p-2 rounded-full">
+        <li class="icons-link-item">
           <a href="" aria-label="Shopping Cart"
             ><i class="fa-solid fa-cart-shopping"></i></a
           >
         </li>
-        <li class="p-2 rounded-full">
+        <li class="icons-link-item">
           <a href="" aria-label="User Account"
             ><i class="fa-regular fa-user"></i></a
           >
@@ -92,8 +108,13 @@ import Container from "./Container.astro";
   const accountLinks = document.querySelector(".icons-links");
   const backButton = document.querySelector(".back-button");
   const navbarToggle = document.querySelector(".navbar-toggle");
+  const hamburgerMenu = document.querySelector(".hamburger-menu-toggle");
+  const menuLinks = document.querySelector(".menu-links");
+  const closeHamBurgerMenu = document.querySelector(".close-hamburger-menu");
 
   // สร้างฟังก์ชันรวมเพื่อจัดการ logic
+
+  // ฟังก์ชัน ตอนกดเเว่นตาขยายเเล้ว ช่อง input จะเเสดงขึ้นมา
   const toggleSearch = () => {
     // ใช้ optional chaining (?) เพื่อป้องกัน error
     searchInput?.classList.toggle("hidden");
@@ -101,6 +122,11 @@ import Container from "./Container.astro";
     accountLinks?.classList.toggle("hidden");
     backButton?.classList.toggle("hidden");
     navbarToggle?.classList.toggle("hidden");
+  };
+
+  const togglesHamburgerMenu = () => {
+    menuLinks?.classList.toggle("invisible");
+    menuLinks?.classList.toggle("translate-x-full");
   };
 
   // ตรวจสอบว่ามี magnifyingGlassIcon และ backButton ก่อนที่จะเพิ่ม Event Listener
@@ -111,15 +137,45 @@ import Container from "./Container.astro";
   if (backButton) {
     backButton.addEventListener("click", toggleSearch);
   }
+
+  // ตรวจสอบว่ามีว่า hamburger menu click หรือ ไหม
+  if (hamburgerMenu) {
+    hamburgerMenu.addEventListener("click", togglesHamburgerMenu);
+  }
+
+  // ตรวจสอบว่ามีว่า close-hamburger-menu click หรือ ไหม
+  if (closeHamBurgerMenu) {
+    closeHamBurgerMenu.addEventListener("click", togglesHamburgerMenu);
+  }
 </script>
 
 <style>
   @import "tailwindcss";
-  .dropdown-menu-item{
-    @apply hover:bg-[var(--my-color-secondary)] ;
+  .dropdown-menu-item {
+    @apply hover:bg-[var(--my-color-secondary)];
   }
   .dropdown-menu-item a {
-    @apply block p-3 hover:bg-[var(--my-color-secondary)] ;
+    @apply block p-3 hover:bg-[var(--my-color-secondary)];
+  }
+  .nav-link {
+    @apply p-4  flex justify-between border-b-1 border-solid border-white;
   }
 
+  .icons-link-item {
+    @apply p-2 rounded-full  inline-block  active:bg-[var(--my-color-secondary)] cursor-pointer;
+  }
+  .bar {
+    /* กำหนดขนาดของแต่ละแท่ง */
+    width: 2rem; /* 32px */
+    height: 0.25rem; /* 4px */
+    
+    /* เว้นระยะห่างระหว่างแท่ง */
+    margin: 0.35rem 0; /* 5.6px */
+    
+    /* สีของแท่ง */
+    background-color: #333;
+    
+    /* ทำให้โค้งมนเล็กน้อย */
+    border-radius: 9999px;
+  }
 </style>
