@@ -1,0 +1,25 @@
+<!-- IconLinks -->
+<div class="icons-links ml-auto">
+  <ul class="flex flex-row text-xl">
+    <li class="magnifying-glass-icon icons-link-item lg:hidden">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </li>
+    <li class="icons-link-item">
+      <a href="" aria-label="Shopping Cart"
+        ><i class="fa-solid fa-cart-shopping"></i></a
+      >
+    </li>
+    <li class="icons-link-item">
+      <a href="" aria-label="User Account"><i class="fa-regular fa-user"></i></a
+      >
+    </li>
+  </ul>
+</div>
+
+<style>
+  @import "tailwindcss";
+   /*IconLinks*/
+  .icons-link-item {
+    @apply p-2 rounded-full w-[40px] h-[40px] hover:bg-[var(--my-color-secondary)] active:bg-[var(--my-color-secondary)] cursor-pointer;
+  }
+</style>

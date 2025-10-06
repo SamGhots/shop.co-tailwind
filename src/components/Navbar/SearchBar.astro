@@ -1,0 +1,32 @@
+<div class="search-bar hidden relative grow-1 lg:flex">
+  <input
+    type="search"
+    placeholder="Search for products..."
+    class="w-full pl-10 pr-5 py-3 bg-gray-100 rounded-full"
+  />
+  <i
+    class="fa-solid fa-magnifying-glass absolute top-1/2 left-3 -translate-y-1/2 text-xl text-gray-400"
+  ></i>
+</div>
+
+<script>
+  //  สำหรับการจัดการการแสดงผลของ SearchBar ทําหน้าที่สลับการแสดงผลของแถบค้นหา โลโก้ และไอคอนบัญชีผู้ใช้
+  // ประกาศตัวแปรทั้งหมด
+  const magnifyingGlassIcon = document.querySelector(".magnifying-glass-icon");
+  const searchBar = document.querySelector(".search-bar");
+  const logo = document.querySelector(".logo");
+  const accountLinks = document.querySelector(".icons-links");
+  const backButton = document.querySelector(".back-button");
+  const hamburgerMenuToggle = document.querySelector(".hamburger-menu-toggle");
+  // ฟังก์ชันสำหรับสลับการแสดงผลของการค้นหาและองค์ประกอบอื่นๆ
+  const toggleSearch = () => {
+    searchBar?.classList.toggle("hidden");
+    logo?.classList.toggle("hidden");
+    accountLinks?.classList.toggle("hidden");
+    backButton?.classList.toggle("hidden");
+    hamburgerMenuToggle?.classList.toggle("hidden");
+  };
+  // เพิ่ม Event Listener ให้กับไอคอนแว่นขยายและปุ่มย้อนกลับ
+  magnifyingGlassIcon?.addEventListener("click", toggleSearch);
+  backButton?.addEventListener("click", toggleSearch);
+</script>

@@ -1,0 +1,48 @@
+<!--Hamburger Menu-->
+<div
+  class="hamburger-menu-toggle p-2 absolute left-2 md:left-4 rounded-full active:bg-[var(--my-color-secondary)] lg:hidden"
+>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+<!--Over Lay -->
+<div
+  id="overlay"
+  class="fixed inset-0 opacity-0 invisible w-full h-full bg-black/50 z-20 cursor-pointer transition-all duration-700"
+>
+</div>
+<script>
+  //  สำหรับการจัดการการแสดงผลของเมนูแฮมเบอร์เกอร์ ทําหน้าที่สลับการแสดงผลของเมนูแฮมเบอร์เกอร์ๆ
+  // ประกาศตัวแปรทั้งหมด
+  const hamburgerMenuToggle = document.querySelector(".hamburger-menu-toggle");
+  const menuLinks = document.querySelector(".menu-links");
+  const closeHamburgerMenu = document.querySelector(".close-hamburger-menu");
+  const overlay = document.getElementById("overlay");
+
+  // ฟังก์ชันสำหรับสลับการแสดงผลของเมนูแฮมเบอร์เกอร์
+  const toggleHamburgerMenu = () => {
+    menuLinks?.classList.toggle("invisible");
+    menuLinks?.classList.toggle("translate-x-full");
+    overlay?.classList.toggle("active");
+    document.body.classList.toggle("no-scroll");
+  };
+  // เพิ่ม Event Listener ให้กับไอคอนแฮมเบอร์เกอร์และปุ่มปิดเมนู
+  hamburgerMenuToggle?.addEventListener("click", toggleHamburgerMenu);
+  closeHamburgerMenu?.addEventListener("click", toggleHamburgerMenu);
+  overlay?.addEventListener("click", toggleHamburgerMenu);
+</script>
+
+<style>
+  @import "tailwindcss";
+  .bar {
+    @apply w-[24px] h-1 mb-[4px] last:mb-[0px] bg-black;
+  }
+
+  #overlay.active {
+    @apply visible opacity-100;
+  }
+  body.no-scroll {
+    @apply overflow-hidden;
+  }
+</style>

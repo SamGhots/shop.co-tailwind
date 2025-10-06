@@ -1,0 +1,197 @@
+<div
+  class="menu-links
+    fixed
+    top-0
+    right-0
+    w-[250px]
+    h-full
+    z-50
+    p-4
+    invisible
+    overflow-y-auto
+    translate-x-full
+    transition-all
+    duration-300
+    bg-[var(--my-color-accent)]
+    text-[var(--my-color-secondary)]
+  lg:flex
+  lg:static
+  lg:w-auto
+  lg:h-auto
+  lg:p-0
+  lg:transition-none
+  lg:visible
+  lg:overflow-visible
+  lg:translate-x-0
+  lg:bg-transparent
+  lg:text-inherit"
+>
+  <button
+    class="close-hamburger-menu w-10 h-10 items-center justify-center p-2 rounded-full ml-auto active:bg-[var(--my-color-secondary)] active:text-black lg:hidden"
+  >
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+
+  <ul class="nav-links lg:flex items-center gap-6 lg:gap-0">
+    <li class="nav-link group accordion-item">
+      <a class="nav-link-trigger accordion-header" href=""
+        >Home <i class="nav-toggle-icon fa-solid fa-chevron-down"></i></a
+      >
+
+      <ul class="accordion-content dropdown-menu">
+        <li class="dropdown-menu-item"><a href="#">Blog sub Menu 1 </a></li>
+        <li class="dropdown-menu-item"><a href="#">Blog sub Menu 2</a></li>
+        <li class="dropdown-menu-item"><a href="#">Blog sub Menu 3</a></li>
+      </ul>
+    </li>
+    <li class="nav-link group accordion-item">
+      <a href="" class="nav-link-trigger accordion-header"
+        >About <i class="nav-toggle-icon fa-solid fa-chevron-down"></i></a
+      >
+      <ul class="accordion-content dropdown-menu">
+        <li class="dropdown-menu-item"><a href="#">Blog sub Menu 1 </a></li>
+        <li class="dropdown-menu-item"><a href="#">Blog sub Menu 2</a></li>
+        <li class="dropdown-menu-item"><a href="#">Blog sub Menu 3</a></li>
+      </ul>
+    </li>
+    <li class="nav-link"><a href="">Services</a></li>
+    <li class="nav-link"><a href="">Contact</a></li>
+  </ul>
+</div>
+
+<script>
+// ====================================================================
+// 🚀 Accordion: Single Open (Mobile Only)
+// ====================================================================
+
+// ----------------------------------------------------
+// 1. การเตรียมพร้อม: รวบรวม Element ที่ต้องใช้งาน
+// ----------------------------------------------------
+// [เก็บชุดข้อมูล Header] - ใช้สำหรับวนลูปติดตั้ง Listener
+const AccordionHeaders = document.querySelectorAll(".accordion-header");
+// [เก็บชุดข้อมูล Content ทั้งหมด] - ใช้สำหรับวนลูปปิดตัวอื่น
+const allAccordionContent = document.querySelectorAll(".accordion-content");
+
+// ----------------------------------------------------
+// 2. การติดตั้ง Listener: วนลูปผ่านแต่ละ Header เพียงครั้งเดียว
+// ----------------------------------------------------
+AccordionHeaders.forEach((header) => {
+    // [เก็บไอคอนปัจจุบัน] - หา Element ไอคอนที่อยู่ภายใน Header ตัวนี้ (Header A)
+    // ใช้สำหรับหมุนไอคอนตัวที่ถูกคลิกเท่านั้น
+    const toggleIcon = header.querySelector(".nav-toggle-icon");
+    
+    // เพิ่ม Event Listener ให้กับแต่ละ Header เพื่อรอรับการคลิก
+    header.addEventListener("click", (event) => {
+        
+        // ----------------------------------------------------
+        // 3. เงื่อนไขการทำงาน (Mobile Only)
+        // ----------------------------------------------------
+        // ถ้าขนาดหน้าจอ <= 1024px เท่านั้น จึงจะทำงาน
+        if (window.innerWidth <= 1024) { 
+            // ป้องกันไม่ให้ลิงก์ (<a>) เปลี่ยนหน้าหรือเลื่อนตำแหน่ง
+            event.preventDefault();
+            
+            // ----------------------------------------------------
+            // 4. การระบุตัวตนของรายการปัจจุบันที่ถูกคลิก
+            // ----------------------------------------------------
+            const accordionItem = header.parentElement; // หา Element แม่ (<li>) ของ Header ที่ถูกคลิก
+            if (!accordionItem) return; // Safety Check: ถ้าหาแม่ไม่เจอ ให้หยุดทำงาน
+            
+            // หา Content ที่อยู่ภายใน Item แม่เดียวกัน (Content A)
+            const accordionContent = accordionItem.querySelector(".accordion-content");
+            // Safety Check และ Type Check: ตรวจสอบว่าหาเจอและเป็น Element HTML
+            if (!(accordionContent instanceof HTMLElement)) return; 
+
+            // ----------------------------------------------------
+            // 5. หลักการ "ปิดก่อนเปิด": วนลูปเพื่อปิด Content อื่นๆ
+            // ----------------------------------------------------
+            allAccordionContent.forEach((content) => {
+                // หา Header และ Icon ของ Content ตัวที่กำลังวนลูปอยู่ (Content B, C, D)
+                const parentHeader = content.parentElement?.querySelector(".accordion-header");
+                const otherIcon = parentHeader?.querySelector(".nav-toggle-icon");
+                
+                // ถ้า Content ที่วนลูปอยู่ 'ไม่ใช่' Content ที่ถูกคลิกในตอนนี้ (content !== accordionContent)
+                if(content !== accordionContent){
+                    // สั่งปิดตัวอื่น: ลบคลาส active และตั้งค่า maxHeight เป็น 0
+                    content.classList.remove('active');
+                    (content as HTMLElement).style.maxHeight = "0";
+                    
+                    // เอาคลาสหมุนออกจากไอคอนของ content อื่นๆ
+                    otherIcon?.classList.remove("rotate-180");
+                }
+            });
+
+            // ----------------------------------------------------
+            // 6. สลับสถานะตัวที่ถูกคลิก (เปิด/ปิด)
+            // ----------------------------------------------------
+            accordionContent.classList.toggle("active");
+            toggleIcon?.classList.toggle("rotate-180"); // ใช้ไอคอนของ Header ที่ถูกผูกไว้ตั้งแต่ต้น
+            
+            // ----------------------------------------------------
+            // 7. กำหนดความสูงตามสถานะ (ใช้ scrollHeight เพื่อความนุ่มนวล)
+            // ----------------------------------------------------
+            if (accordionContent.classList.contains("active")) {
+                // ถ้ามีคลาส active (กำลังเปิด): ตั้งค่า maxHeight เป็นความสูงจริงของเนื้อหา
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+            } else {
+                // ถ้าไม่มีคลาส active (กำลังปิด): ตั้งค่า maxHeight เป็น 0
+                accordionContent.style.maxHeight = "0";
+            }
+        }
+    });
+});
+</script>
+
+<style>
+  @reference "tailwindcss";
+  .nav-link {
+    @apply lg:relative;
+  }
+  .nav-link>a {
+    @apply p-4 flex justify-between border-b-1 border-solid border-white lg:p-2 lg:items-center lg:gap-1 lg:border-none;
+  }
+  .nav-link-trigger {
+    @apply flex justify-between;
+  }
+  .nav-toggle-icon {
+    @apply duration-300 transition-all lg:transform lg:transition-all lg:duration-300 lg:group-hover:rotate-180;
+  }
+  /* accordion (Use with mobile phones) */
+  .accordion-content {
+    @apply max-h-0 opacity-0 invisible overflow-hidden transition-all duration-300 ease-in-out;
+  }
+  .accordion-content.active {
+    @apply max-h-[500px] opacity-100 visible;
+  }
+
+  /*dropdown-menu (Use with computers)*/
+  .dropdown-menu {
+    @apply lg:max-h-max
+    lg:absolute 
+    top-[100%] 
+    lg:left-[-16px] 
+    lg:max-w-[200px]
+    lg:whitespace-nowrap
+    lg:bg-white 
+    rounded-[10px]
+    lg:shadow-xl/20 
+    lg:inset-shadow-2xs 
+    lg:opacity-0 
+    lg:invisible
+    lg:translate-y-0 
+    lg:transition-all 
+    lg:duration-300 
+    lg:ease-in-out
+    lg:group-hover:translate-y-1 
+    lg:group-hover:opacity-100 
+    lg:group-hover:visible 
+    lg:overflow-hidden;
+  }
+  .dropdown-menu-item {
+    @apply hover:bg-[var(--my-color-secondary)];
+  }
+
+  .dropdown-menu-item a {
+    @apply block p-3 hover:bg-[var(--my-color-secondary)];
+  }
+</style>
