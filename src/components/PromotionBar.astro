@@ -6,7 +6,7 @@ import Container from "./Container.astro";
   <Container class="text-center py-4">
     <div class="relative">
       <p class="italic text-gray-300">
-        Sign up and get 20% off to your first order. <u class="text-white">Sign Up Now</u>
+        Sign up and get 20% off to your first order. <br class="line-management" /> <u class="text-white">Sign Up Now</u>
       </p>
       <button type="button" class="promo-close-button hidden  sm:block p-2  absolute top-[-8px] right-0 cursor-pointer text-white  hover:bg-[var(--my-color-secondary)] hover:text-[var(--my-color-accent)] rounded-full" aria-label="Close"
         ><svg
@@ -37,3 +37,23 @@ import Container from "./Container.astro";
   closeBtn?.addEventListener("click",hidePromoBanner);
 
 </script>
+
+
+<style is:global> 
+
+/* Logic 1: ทำงานเมื่อหน้าจอแคบกว่า 374.99px ลงไป */
+@media (max-width: 374.99px) {
+  .line-management { 
+    display: none; 
+
+  }
+}
+
+/* Logic 2: ทำงานเมื่อหน้าจอตั้งแต่ 425px ขึ้นไป */
+@media (min-width: 425.99px) {
+  .line-management { 
+    display: none; 
+  }
+}
+
+</style>
