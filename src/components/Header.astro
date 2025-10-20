@@ -59,16 +59,8 @@ import diamondImg from "../img/shape/diamond.svg";
     <div
       class="header-right flex-grow flex-shrink-1 lg:basis-[35%] xl:basis-[54%] self-end relative"
     >
-     <img
-        src={diamondImg.src}
-        alt="small diamond"
-        class="absolute top-40 left-1 sm:top-50 sm:left-20 md:top-60 md:left-30 lg:top-40 lg:left-10 xl:top-60 xl:left-20 2xl:top-80 w-[30px] h-[30px] sm:w-[46px] sm:h-[46px] lg:w-[40px] lg:h-[40px] xl:w-[56px] xl:h-[56px]"
-      />
-      <img
-        src={diamondImg.src}
-        alt="Big diamond"
-        class="absolute top-12 right-1 sm:top-15 sm:right-25 md:top-20 md:right-40 lg:top-10 lg:right-10 xl:top-20 xl:right-20 w-[50px] h-[50px]  sm:w-[60px] sm:h-[60px] lg:w-[60px] lg:h-[60px] xl:w-[90px] xl:h-[90px] 2xl:w-[104px] 2xl:h-[104px]"
-      />
+      <img src={diamondImg.src} alt="small diamond" class="small-diamond" />
+      <img src={diamondImg.src} alt="Big diamond" class="big-diamond" />
       <img
         src={HeaderImg.src}
         alt="A couple, man and woman, smiling while modeling stylish modern fashion apparel"
@@ -80,8 +72,61 @@ import diamondImg from "../img/shape/diamond.svg";
 
 <style>
   @reference "tailwindcss";
-
   .stats-item {
     @apply flex flex-col   px-4 lg:last:pl-4   first:pl-0 xl:last:pr-0 justify-center items-center lg:items-start w-1/2 sm:w-auto;
+  }
+</style>
+<style is:global>
+  @reference "tailwindcss";
+  .big-diamond {
+    /* 1. CSS พื้นฐานสำหรับหน้าจอแคบที่สุด (Default: 0px ถึง 424px) */
+    position: absolute;
+    right: 3%;
+    top: 10%;
+    width: 50px;
+    height: 50px;
+   /* 2. Media Query สำหรับช่วง 350px  เพราะตําเเหน่ง เพชล พื้นฐานเริ่มหลุดจากตําเเหน่งที่ควรจะเป็น*/
+   @media (min-width: 350px) and (max-width: 424.99px) {
+      right: 12%;
+      top: 10%;
+     
+    }
+
+    /* 3. Media Query สำหรับช่วง 425px > 639.99px */
+    @media (min-width: 425px) and (max-width: 639.99px) {
+      right: 12%;
+      top: 10%;
+
+    width: clamp(50px, 12vw, 76px);
+    height: clamp(50px, 12vw, 76px);
+    }
+
+    /* 3. Tailwind Utility Classes สำหรับ Breakpoint ที่สูงขึ้น (ตั้งแต่ sm: 640px) */
+    @apply sm:top-[10%] sm:right-[16%] md:top-[10%] md:right-[17%] lg:top-[12%] lg:right-[10%] xl:top-[12%] xl:right-[10%] 
+               sm:w-[76px] sm:h-[76px] md:w-[80px] md:h-[80px] lg:w-[60px] lg:h-[60px] xl:w-[90px] xl:h-[90px] 2xl:w-[104px] 2xl:h-[104px];
+  }
+  .small-diamond {
+    /* 1. CSS พื้นฐานสำหรับหน้าจอแคบที่สุด (Default: 0px ถึง 424px) */
+    position: absolute;
+    left: 3%;
+    top: 35%;
+    width: 30px;
+    height: 30px;
+   /* 2. Media Query สำหรับช่วง 350px  เพราะตําเเหน่ง เพชล พื้นฐานเริ่มหลุดจากตําเเหน่งที่ควรจะเป็น*/
+   @media (min-width: 350px) and (max-width: 424.99px) {
+      left: 8%;
+  top: 35%;
+    }
+
+    /* 3. Media Query สำหรับช่วง 425px > 639.99px */
+    @media (min-width: 425px) and (max-width: 639.99px) {
+      left: 12%;
+      top: 35%;
+      
+    width: clamp(30px, 7vw, 44px);
+    height: clamp(30px, 7vw, 44px);
+    }
+    @apply absolute  sm:top-[40%] sm:left-[14%] md:top-[40%] md:left-[14%] lg:top-[42%] lg:left-[6%] xl:top-[42%] xl:left-[6%] 
+     sm:w-[44px] sm:h-[44px] md:w-[48px] md:h-[48px] lg:w-[40px] lg:h-[40px] xl:w-[56px] xl:h-[56px];
   }
 </style>
