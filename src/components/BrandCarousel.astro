@@ -1,0 +1,136 @@
+---
+import Container from "./Container.astro";
+// Import ไฟล์ SVG ทั้งหมด
+import img1 from "../img/brand/calvinKlein.svg";
+import img2 from "../img/brand/gucci.svg";
+import img3 from "../img/brand/prada.svg";
+import img4 from "../img/brand/versace.svg";
+import img5 from "../img/brand/zara.svg";
+
+// สร้าง Array ของโลโก้ (ดึงเฉพาะ Object ที่ถูก Import เข้ามา)
+const logos = [
+  { src: img1.src, alt: "Calvin Klein Logo" },
+  { src: img2.src, alt: "Gucci Logo" },
+  { src: img3.src, alt: "Prada Logo" },
+  { src: img4.src, alt: "Versace Logo" },
+  { src: img5.src, alt: "Zara Logo" },
+];
+---
+
+<div
+  class="brand-carousel bg-[var(--my-color-accent)] flex overflow-hidden py-6 relative lg:overflow-visible
+            
+            /* แก้ไข/เพิ่มคลาสที่จำเป็น */
+            before:content-[''] /* 1. ต้องมี content */
+            before:absolute /* 2. ต้องเป็น absolute */
+            before:top-0 before:left-0 /* 3. จัดตำแหน่งไปที่มุมซ้ายบน */
+            before:w-15 /* 4. กำหนดความกว้าง (แก้จาก w-2.5) */
+            before:h-full /* 5. กำหนดความสูงเต็ม Container */
+           before:bg-[linear-gradient(to_left,rgba(255,255,255,0),#828282)] /* 6. กำหนดสีพื้นหลัง (ใส่ /50 เพื่อให้โปร่งแสง) */
+            
+           /* *** เพิ่มบรรทัดนี้: ซ่อนบนจอใหญ่ (lg ขึ้นไป) *** */
+            lg:before:hidden
+               /* แก้ไข/เพิ่มคลาสที่จำเป็น */
+            after:content-[''] /* 1. ต้องมี content */
+            after:absolute /* 2. ต้องเป็น absolute */
+            after:top-0 after:right-0 /* 3. จัดตำแหน่งไปที่มุมซ้ายบน */
+            after:w-15 /* 4. กำหนดความกว้าง (แก้จาก w-2.5) */
+            after:h-full /* 5. กำหนดความสูงเต็ม Container */
+           after:bg-[linear-gradient(to_right,rgba(255,255,255,0),#828282)] /* 6. กำหนดสีพื้นหลัง (ใส่ /50 เพื่อให้โปร่งแสง) */
+           /* *** เพิ่มบรรทัดนี้: ซ่อนบนจอใหญ่ (lg ขึ้นไป) *** */
+            lg:after:hidden"
+>
+<Container class="flex">
+   <div
+    class="brands-slide flex w-max flex-shrink-0 lg:w-full lg:justify-between"
+  >
+    {
+      logos.map((logo) => (
+        <img
+          class="mx-6 h-6 md:h-8 lg:h-8 lg:mx-0 "
+          src={logo.src}
+          alt={logo.alt}
+        />
+      ))
+    }
+  </div>
+</Container>
+ 
+</div>
+
+<style>
+  .brands-slide {
+    /* animation: slide 8s linear infinite;*/
+    animation: slide 5s linear infinite;
+  }
+  .brand-carousel:hover .brands-slide {
+    animation-play-state: paused;
+  }
+  @media (min-width: 1023px) {
+    .brands-slide {
+      animation: none;
+      transform: none;
+    }
+  }
+  @keyframes slide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+</style>
+<script>
+  // JS Code: โคลน brands-slide แล้ว append เข้า brand-carousel
+  document.addEventListener("DOMContentLoaded", () => {
+    // const container = document.querySelector(".container"); // ไม่ต้องใช้ตัวนี้แล้ว
+    const BrandsSlide = document.querySelector(".brands-slide");
+
+    // *** ตรวจสอบ Media Query สำหรับขนาด 'lg' (min-width: 1024px) ***
+    const isLargeScreen = window.matchMedia("(min-width: 1024px)").matches;
+
+    if (BrandsSlide) {
+      // *** เพิ่มเงื่อนไข: โคลนเฉพาะถ้า 'isLargeScreen' เป็น FALSE เท่านั้น ***
+      if (!isLargeScreen) {
+        const CloneSlide = BrandsSlide.cloneNode(true);
+
+        // *** แก้ไข: ตรวจสอบว่า parentNode ไม่เป็น null ก่อนเรียก appendChild ***
+        const parent = BrandsSlide.parentNode;
+        if (parent) {
+          parent.appendChild(CloneSlide);
+        }
+        
+        // (ในโครงสร้างของคุณ: BrandsSlide.parentNode คือ Container Component)
+
+      }
+      // ถ้าเป็นจอใหญ่ (isLargeScreen เป็น true) โค้ดจะไม่ทำงาน
+    }
+  });
+</script>
+
+
+
+
+<script>
+// นำไปใส่ใน BaseLayout.astro เพื่อจัดการการรีโหลด
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. กำหนด Media Query สำหรับจอใหญ่ (lg: 1024px ขึ้นไป)
+    const largeScreenQuery = window.matchMedia("(min-width: 1024px)");
+
+    // 2. สร้างฟังก์ชันที่จะทำงานเมื่อ Media Query เปลี่ยนสถานะ
+    function handleScreenChange(e: MediaQueryListEvent) {
+        // *** แก้ไข: สั่งรีโหลดทุกครั้งที่สถานะ e.matches เปลี่ยนไป ***
+        // เนื่องจากโค้ดนี้ถูกผูกกับ Event 'change' มันจะทำงานเมื่อข้าม 1024px เท่านั้น
+        // ดังนั้นไม่ว่าจะเป็น (เล็ก -> ใหญ่) หรือ (ใหญ่ -> เล็ก) ก็จะรีโหลด
+        
+        // ใช้ setTimeout เพื่อให้แน่ใจว่ามันรันหลังจาก DOM โหลดเสร็จ/เปลี่ยนแปลง
+        setTimeout(() => {
+            window.location.reload();
+        }, 10); 
+    }
+
+    // 3. เริ่มฟังการเปลี่ยนแปลงของ Media Query
+    largeScreenQuery.addEventListener('change', handleScreenChange);
+});
+</script>
