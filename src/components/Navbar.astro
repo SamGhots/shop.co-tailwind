@@ -4,6 +4,7 @@ import MenuLinks from "./Navbar/MenuLinks.astro";
 import HamburgerMenu from "./Navbar/HamburgerMenu.astro";
 import SearchBar from "./Navbar/SearchBar.astro";
 import IconLinks from "./Navbar/IconLinks.astro";
+import logo from "../img/logo/SHOP.CO.svg"
 ---
 
 <nav class="sticky top-0 bg-white z-50 shadow-sm">
@@ -20,7 +21,7 @@ import IconLinks from "./Navbar/IconLinks.astro";
     </div>
     <!-- brand logo -->
     <div class="logo ml-10 lg:ml-0">
-      <a href=""><img src="src/img/logo/SHOP.CO.svg" alt="logo" /></a>
+      <a href=""><img src={logo.src} alt="logo" /></a>
     </div>
     <MenuLinks />
     <!-- SearchBar -->
