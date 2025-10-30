@@ -26,3 +26,26 @@ import BrandCarousel from "../components/BrandCarousel.astro";
     <BrandCarousel />
   </body>
 </html>
+
+<script>
+//Responsive JavaScript to reload page on screen size change across lg breakpoint
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. กำหนด Media Query สำหรับจอใหญ่ (lg: 1024px ขึ้นไป)
+    const largeScreenQuery = window.matchMedia("(min-width: 1024px)");
+
+    // 2. สร้างฟังก์ชันที่จะทำงานเมื่อ Media Query เปลี่ยนสถานะ
+    function handleScreenChange(e: MediaQueryListEvent) {
+      // *** แก้ไข: สั่งรีโหลดทุกครั้งที่สถานะ e.matches เปลี่ยนไป ***
+      // เนื่องจากโค้ดนี้ถูกผูกกับ Event 'change' มันจะทำงานเมื่อข้าม 1024px เท่านั้น
+      // ดังนั้นไม่ว่าจะเป็น (เล็ก -> ใหญ่) หรือ (ใหญ่ -> เล็ก) ก็จะรีโหลด
+
+      // ใช้ setTimeout เพื่อให้แน่ใจว่ามันรันหลังจาก DOM โหลดเสร็จ/เปลี่ยนแปลง
+      setTimeout(() => {
+        window.location.reload();
+      }, 10);
+    }
+
+    // 3. เริ่มฟังการเปลี่ยนแปลงของ Media Query
+    largeScreenQuery.addEventListener("change", handleScreenChange);
+  });
+</script>
