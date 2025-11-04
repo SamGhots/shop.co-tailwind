@@ -28,8 +28,8 @@ function getStarRating(rating: number) {
 ---
 
 <li class="flex flex-col">
-  <div class="h-70">
-    <img class="w-full rounded-2xl h-70 object-cover" src={img} alt={title} />
+  <div class="h-36 md:h-70">
+    <img class="w-full rounded-2xl h-36 md:h-70 object-cover" src={img} alt={title} />
   </div>
   <h3
     class="mt-2 font-bold text-[clamp(1rem,2vw,1.25rem)] truncate"
@@ -45,7 +45,7 @@ function getStarRating(rating: number) {
   <section>
     {
       discountPercentage > 0 ? (
-        <div class="flex items-center gap-2 mt-2">
+        <div class="flex items-center gap-2 mt-2 flex-wrap">
           {/* ราคาขาย */}
           <p class="text-[clamp(1.25rem,3vw,1.5rem)] font-bold">
             ${(fullPrice - fullPrice * (discountPercentage / 100)).toFixed(2)}

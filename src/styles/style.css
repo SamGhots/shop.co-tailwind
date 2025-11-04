@@ -1,7 +1,12 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-
+@media (prefers-color-scheme: dark) {
+  /* ถ้าผู้ใช้ตั้งค่าเป็นธีมมืด */
+  body {
+    background-color: black; /* หรือสีเข้ม */
+  }
+}
 @font-face {
   font-family: 'Satoshi';
   src: url('../assets/fonts/Satoshi-Variable.woff2') format('woff2'),
