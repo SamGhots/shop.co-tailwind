@@ -28,8 +28,8 @@ function getStarRating(rating: number) {
 ---
 
 <li class="flex flex-col">
-  <div class="h-36 md:h-70">
-    <img class="w-full rounded-2xl h-36 md:h-70 object-cover" src={img} alt={title} />
+  <div class="h-40 min-[375px]:h-45 min-[426px]:h-55 md:h-60 lg:h-60 xl:h-70">
+    <img class="w-full rounded-2xl h-36 min-[375px]:h-45 min-[426px]:h-55 lg:h-60 xl:h-70" src={img} alt={title} />
   </div>
   <h3
     class="mt-2 font-bold text-[clamp(1rem,2vw,1.25rem)] truncate"
@@ -45,22 +45,24 @@ function getStarRating(rating: number) {
   <section>
     {
       discountPercentage > 0 ? (
-        <div class="flex items-center gap-2 mt-2 flex-wrap">
+        <div class="flex flex-col min-[375px]:flex-row mt-2 min-[375px]:gap-1.5 md:gap-3 ">
           {/* ราคาขาย */}
           <p class="text-[clamp(1.25rem,3vw,1.5rem)] font-bold">
             ${(fullPrice - fullPrice * (discountPercentage / 100)).toFixed(2)}
           </p>
-          {/* ราคาเต็ม (ขีดฆ่า) */}
-          <p class=" text-[clamp(1.25rem,3vw,1.5rem)] font-bold  text-gray-500 line-through">
-            ${fullPrice}
-          </p>
-          {/* ส่วนลด */}
-          <p class="bg-red-100 rounded-full text-red-700 w-fit px-4 py-1 text-[clamp(0.625rem,3vw,0.75rem)]">
-            -{discountPercentage}%
-          </p> 
+          <div class="flex items-center gap-2">
+            {/* ราคาเต็ม (ขีดฆ่า) */}
+            <p class=" text-[clamp(1.2rem,3vw,1.5rem)] font-bold  text-gray-500 line-through">
+              ${fullPrice}
+            </p>
+            {/* ส่วนลด */}
+            <p class="bg-red-100 rounded-full  text-red-700 w-fit p-1 text-[clamp(0.625rem,3vw,0.75rem)]">
+              -{discountPercentage}%
+            </p>
+          </div>
         </div>
       ) : (
-        <p class="mt-2 text-[clamp(1.25rem,3vw,1.5rem)] font-bold  ">${fullPrice}</p>
+        <p class="mt-2 text-[clamp(1.25rem,3vw,1.5rem)] font-bold ">${fullPrice}</p>
       )
     }
   </section>

@@ -5,10 +5,10 @@ import Container from "./Container.astro";
 
 <section class="">
   <Container class="py-6">
-    <h1 class="uppercase text-center mt-6 mb-10 text-3xl md:text-5xl">New Arrivals</h1>
+    <h1 class="uppercase text-center mt-4 mb-8   md:mt-6 md:mb-14  text-3xl md:text-5xl">New Arrivals</h1>
     <ul
       id="product-list"
-      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 limited-view"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 limited-view min-[375px]:gap-x-4 "
     >
       <Product
         title="T-SHIRT WITH TAPE DETAILS"
@@ -61,10 +61,11 @@ import Container from "./Container.astro";
         fullPrice="130"
       />
     </ul>
-    <div class="flex justify-center mt-9">
+    <div class="flex  justify-center mt-6">
       <button
         id="view-all-button"
-        class="btn btn-neutral btn-outline border-gray-500 rounded-full p-5 w-36 md:w-56"
+        class="btn btn-neutral btn-outline border-gray-500 rounded-full p-4 md:p-6 w-full 
+    min-[425px]:w-48"
         >View All</button
       >
     </div>
@@ -72,15 +73,35 @@ import Container from "./Container.astro";
 </section>
 
 <style>
-  /* Styles for limited and expanded views */
+.limited-view {
+  max-height: 255px; 
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+@media (min-width: 640px) {
   .limited-view {
-    max-height: 350px;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
+    max-height: 400px; 
   }
-  .expanded-view {
-    max-height: 3000px;
+}
+
+@media (min-width: 375px) {
+  .limited-view {
+    max-height: 280px; 
   }
+}
+@media (min-width: 426px) {
+  .limited-view {
+    max-height: 323px; 
+  }
+}
+@media (min-width: 768px) {
+  .limited-view {
+    max-height: 350px; 
+  }
+}
+.expanded-view {
+  max-height: 3000px;
+}
 </style>
 <script>
   /* JavaScript to toggle between limited and expanded views */
