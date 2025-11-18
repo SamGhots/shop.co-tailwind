@@ -1,0 +1,10 @@
+---
+import ProductDisplay from "./ProductDisplay.astro";
+import {productsData} from "../data/ProductDataTopSelling.js";
+---
+<!-- topSelling.astro -->
+<ProductDisplay 
+title="top selling" 
+products={productsData} 
+showSeparator={false} 
+/>

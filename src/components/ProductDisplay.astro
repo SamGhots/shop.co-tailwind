@@ -1,0 +1,92 @@
+---
+import Product from "./ProductCard.astro";
+import Container from "./Container.astro";
+
+const { title, products ,showSeparator=true } = Astro.props as Props;
+interface Props {
+    title: string;
+    products: ProductProp[]; 
+    showSeparator?: boolean;
+}
+interface ProductProp {
+  name: string;
+  img: string;
+  star: string;
+  price: string;
+  discount?: number;
+}
+---
+<section>
+  <Container class="py-3 ">
+    <h1
+      class="uppercase text-center mb-8 md:mb-14 text-3xl md:text-5xl"
+    >
+      {title}
+    </h1>
+    <ul
+   
+      class="product-list grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 limited-view min-[375px]:gap-x-4"
+    >
+      {
+        products.map((product:ProductProp) => (
+          <Product
+            title={product.name}
+            img={product.img}
+            star={parseFloat(product.star)}
+            fullPrice={parseFloat(product.price)}
+            discountPercentage={product.discount ? product.discount : 0}
+          />
+        ))
+      }
+    </ul>
+    <div class="flex justify-center mt-6">
+      <button
+        class="view-all-button btn btn-neutral btn-outline border-gray-500 rounded-full p-4 md:p-6 w-full
+    min-[425px]:w-48"
+        >View All</button
+      >
+    </div>
+   {showSeparator && (
+        <hr class="mt-10  border-t border-gray-300 my-4" />
+    )}
+  </Container>
+</section>
+
+<style>
+  .limited-view {
+    max-height: 280px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+   .expanded-view {
+    max-height: 3000px;
+  }
+  
+  @media (min-width: 375px) {
+    .limited-view {
+      max-height: 280px;
+    }
+  }
+   @media (min-width: 426px) {
+    .limited-view {
+      max-height: 320px;
+    }
+  }
+  @media (min-width: 640px) {
+    .limited-view {
+      max-height: 310px;
+    }
+  }
+  @media (min-width: 768px) {
+    .limited-view {
+      max-height: 350px;
+    }
+  }
+    @media (min-width: 1280px) {
+    .limited-view {
+      max-height: 400px;
+    }
+  }
+ 
+</style>
+
