@@ -1,0 +1,63 @@
+---
+import Container from "./Container.astro";
+import Casual from "../img/style/Casual.png";
+import Formal from "../img/style/Formal.png";
+import Party from "../img/style/Party.png";
+import Gym from "../img/style/Gym.png";
+
+// สร้าง Array ข้อมูล เพื่อให้จัดการง่ายขึ้นในอนาคต
+const styles = [
+  { 
+    name: "Casual", 
+    image: Casual, 
+    // ใช้ object-[ตำแหน่งหน้าจอเล็ก] แล้วตามด้วย lg:object-[ตำแหน่งหน้าจอใหญ่]
+    pos: "object-[75%_60%] lg:object-[80%_30%]", 
+    span: "md:col-span-3" 
+  },
+  { 
+    name: "Formal", 
+    image: Formal, 
+    pos: "object-[90%_30%] lg:object-[90%_10%]", 
+    span: "md:col-span-5" 
+  },
+  { 
+    name: "Party", 
+    image: Party, 
+    pos: "object-[50%_50%] lg:object-[50%_40%]", 
+    span: "md:col-span-5" 
+  },
+  { 
+    name: "Gym", 
+    image: Gym, 
+    pos: "object-[80%_30%] lg:object-[80%_25%]", 
+    span: "md:col-span-3" 
+  },
+];
+---
+
+<section>
+  <Container class="py-10">
+    <div class="bg-gray-100 rounded-3xl py-5 px-5 md:py-10 md:px-12">
+      <h1 class="mb-5 lg:mt-6 lg:mb-16 text-center text-[var(--my-color-accent)] text-[clamp(1.8rem,3.5vw,4rem)] font-bold leading-[1]">
+        BROWSE BY DRESS STYLE
+      </h1>
+      
+      <ul class="grid grid-cols-1 md:grid-cols-8 gap-6">
+        {styles.map((item) => (
+          <li class={`${item.span}`}>
+            <a href="#" class="relative block overflow-hidden rounded-2xl h-45 lg:h-72 group">
+              <img 
+                src={item.image.src} 
+                alt={item.name}
+                class={`w-full h-full object-cover ${item.pos} transition-transform duration-500 group-hover:scale-105`} 
+              />
+              <span class="absolute top-6 left-6 text-3xl lg:text-4xl font-bold text-black drop-shadow-md">
+                {item.name}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</section>

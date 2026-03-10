@@ -54,4 +54,5 @@ export const productsData = [
     star: "4.5",
     price: "130",
   },
+  
 ];

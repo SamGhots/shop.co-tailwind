@@ -16,7 +16,7 @@ interface ProductProp {
   discount?: number;
 }
 ---
-<section>
+<section class="product-section">
   <Container class="py-3 ">
     <h1
       class="uppercase text-center mb-8 md:mb-14 text-3xl md:text-5xl"
@@ -25,7 +25,7 @@ interface ProductProp {
     </h1>
     <ul
    
-      class="product-list grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 limited-view min-[375px]:gap-x-4"
+      class="product-list grid [&>*]:hidden grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 limited-view min-[375px]:gap-x-4"
     >
       {
         products.map((product:ProductProp) => (
@@ -51,42 +51,4 @@ interface ProductProp {
     )}
   </Container>
 </section>
-
-<style>
-  .limited-view {
-    max-height: 280px;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-  }
-   .expanded-view {
-    max-height: 3000px;
-  }
-  
-  @media (min-width: 375px) {
-    .limited-view {
-      max-height: 280px;
-    }
-  }
-   @media (min-width: 426px) {
-    .limited-view {
-      max-height: 320px;
-    }
-  }
-  @media (min-width: 640px) {
-    .limited-view {
-      max-height: 310px;
-    }
-  }
-  @media (min-width: 768px) {
-    .limited-view {
-      max-height: 350px;
-    }
-  }
-    @media (min-width: 1280px) {
-    .limited-view {
-      max-height: 400px;
-    }
-  }
- 
-</style>
 
