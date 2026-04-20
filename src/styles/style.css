@@ -71,3 +71,10 @@ small {
 Button {
   font-size: clamp(0.875rem, 2vw, 1rem);
 }
+
+
+@layer components {
+  .section-title {
+    @apply uppercase text-center text-3xl md:text-5xl font-bold;
+  }
+}
