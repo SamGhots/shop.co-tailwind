@@ -1,11 +1,38 @@
 ---
-import Container from './Container.astro';
-import SliderReviews from './SliderReviews.astro';
+import Container from "./Container.astro";
+import SliderReviews from "./SliderReviews.astro";
+import Arrow from "../img/icons/arrow.svg";
 ---
 
 <section>
-  <Container class="py-16 flex flex-col gap-8">
-    <h1 class="section-title text-left">OUR HAPPY CUSTOMERS</h1>
+  <Container class="py-9 lg:py-14 flex flex-col gap-6 lg:gap-8">
+    <div class="flex items-end justify-between w-full relative">
+      <h1 class="section-title text-left m-0">OUR HAPPY CUSTOMERS</h1>
+      <!-- Previous button & Next button -->
+      <div class="flex gap-2">
+        <div
+          class="custom-prev cursor-pointer border-2 border-gray-200 rounded-full p-1
+                hover:bg-gray-100 hover:opacity-70
+                active:scale-85 active:bg-gray-200 transition-all duration-150"
+          role="button"
+          aria-label="Previous review"
+          tabindex="0"
+        >
+          <Arrow class="w-5.5 h-5.5 lg:w-6 lg:h-6 rotate-180" />
+        </div>
+        <div
+          class="custom-next cursor-pointer border-2 border-gray-200 rounded-full p-1
+                hover:bg-gray-100 hover:opacity-70
+                active:scale-85 active:bg-gray-200 transition-all duration-150"
+          role="button"
+          aria-label="Next slide"
+          tabindex="0"
+        >
+          <Arrow class="w-5.5 h-5.5 lg:w-6 lg:h-6" />
+        </div>
+      </div>
+    </div>
+
     <SliderReviews />
   </Container>
 </section>

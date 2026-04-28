@@ -1,31 +1,91 @@
 ---
-import { reviewsData } from '../data/CustomerDataReviews';
-import Star from '../img/icons/star.svg';
-import CheckBox from '../img/icons/checkbox.svg';
+import { reviewsData } from "../data/CustomerDataReviews";
+import Star from "../img/icons/star.svg";
+import CheckBox from "../img/icons/checkbox.svg";
 ---
-<div class="swiper ">
-  <div class="card-wrapper">
- 
-    
-    <ul class="card-list ">
-         {
-     reviewsData.map((data) =>(
 
-      <li class="card-item rounded-2xl border-2 border-gray-200 py-7 px-8">
-        <a href="" class="card-link">
-          <span class="card-rating flex  gap-1.5 mb-3.5">
-           {Array.from({length:data.stars}).map(()=><Star/>)}</span>
-          <h3 class="card-title mb-3 flex items-center gap-2">
-            {data.name}
-            <span class=""><CheckBox /></span></h3>
-          <p class="card-description">
-            {data.review}
-          </p>
-        </a>
-      </li>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<div class="swiper w-full !pb-9"
+style="--swiper-pagination-bullet-size: 13px; --swiper-pagination-color: var(--my-color-accent);
+ --swiper-pagination-bullet-inactive-opacity: 0.2; --swiper-pagination-bullet-opacity: 1;"
+>
+  <div class="card-wrapper">
+    <ul class="card-list swiper-wrapper">
+      {
+        reviewsData.map((data) => (
+          <li class="card-item swiper-slide h-auto rounded-2xl border-2 border-gray-200 p-6 lg:py-7 lg:px-8">
+            <a href="" class="card-link">
+              <span class="card-rating flex  gap-1.5 mb-3">
+                {Array.from({ length: data.stars }).map(() => (
+                  <Star class="w-5.5 h-5.5" />
+                ))}
+              </span>
+              <h3 class="card-title mb-3 flex items-center gap-2 font-bold text-lg  lg:text-xl ">
+                {data.name}
+                <span class="">
+                  <CheckBox class="w-6 h-6" />
+                </span>
+              </h3>
+              <p class="card-description  text-gray-600 line-clamp-4 ">
+                {data.review}
+              </p>
+            </a>
+          </li>
         ))
       }
     </ul>
-  
+    <!--  เเสดงตําเเหน่งการเเบ่งหน้า  -->
+    <div class="swiper-pagination"></div>
   </div>
 </div>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+  // เริ่มต้นใช้งาน Swiper
+  const swiper = new Swiper(".card-wrapper", {
+    // ต้องใส่ modules ทุกครั้งที่ import มา
+    modules: [Navigation, Pagination, Autoplay],
+
+    grabCursor: true,
+    loop: true,
+    spaceBetween: 30,
+
+    // การตั้งค่าจุดนำทาง
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      dynamicBullets: true,
+    },
+
+    // การตั้งค่าปุ่มลูกศร เป็นของเราเอง
+    navigation: {
+      nextEl: ".custom-next",
+      prevEl: ".custom-prev",
+
+      /*
+    ปุ่มลูกศรของ swiper ถ้าใช้ของ swiper เองจะมี class เป็น .swiper-button-next และ .swiper-button-prev
+       nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev', 
+      */
+    },
+
+    // ปรับจำนวนการ์ดตามหน้าจอ
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+      },
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    },
+  });
+</script>
