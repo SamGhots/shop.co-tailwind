@@ -1,0 +1,112 @@
+---
+import Container from "./Container.astro";
+import Facebook from "../img/social-icons/facebook.svg";
+import Instagram from "../img/social-icons/instagram.svg";
+import X from "../img/social-icons/x.svg";
+import Github from "../img/social-icons/github.svg";
+---
+
+<div class="bg-[#F0F0F0]">
+  <Container class="py-8">
+    <div class="footer-top">
+      <div class="logo">
+        <h1 class="text-2xl font-bold  text-3xl">Shop.co</h1>
+        <p class="text-gray-600 mt-4">
+          We have clothes that suits your style and which you’re proud to wear.
+          From women to men.
+        </p>
+        <ul class="social-icons-group mt-4 flex gap-2">
+          <li>
+            <a
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="scocial-icon"
+            >
+              <X />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="scocial-icon"
+            >
+              <Facebook />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="scocial-icon"
+            >
+              <Instagram />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="scocial-icon"
+            >
+              <Github />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-links mt-6 grid grid-cols-2 gap-y-5 gap-x-4 lg:flex lg:justify-between lg:flex-wrap">
+        <div class="link-group">
+          <h2 class="text-lg font-semibold mb-4">Company</h2>
+          <ul class="text-gray-600">
+            <li class="mb-2"><a href="#">About Us</a></li>
+            <li class="mb-2"><a href="#">Features</a></li>
+            <li class="mb-2"><a href="#">Works</a></li>
+            <li class="mb-2"><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="link-group">
+          <h2 class="text-lg font-semibold mb-4">Help</h2>
+          <ul class="text-gray-600">
+            <li class="mb-2"><a href="#">Customer Support</a></li>
+            <li class="mb-2"><a href="#">Delivery Information</a></li>
+            <li class="mb-2"><a href="#">Returns & Exchanges</a></li>
+            <li class="mb-2"><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="link-group">
+          <h2 class="text-lg font-semibold mb-4">FAQ</h2>
+          <ul class="text-gray-600">
+            <li class="mb-2"><a href="#">Account </a></li>
+            <li class="mb-2"><a href="#">Manage Deliveries</a></li>
+            <li class="mb-2"><a href="#">Orders</a></li>
+            <li class="mb-2"><a href="#">Pavments</a></li>
+          </ul>
+        </div>
+        <div class="link-group">
+          <h2 class="text-lg font-semibold mb-4">RESOURCES</h2>
+          <ul class="text-gray-600">
+            <li class="mb-2"><a href="#">Free eBooks </a></li>
+            <li class="mb-2"><a href="#">Development Tutorial</a></li>
+            <li class="mb-2"><a href="#">How to - Blog</a></li>
+            <li class="mb-2"><a href="#">Youtube Playlist</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-down">
+      <hr class="my-6 border-t border-gray-300" />
+    </div>
+  </Container>
+</div>
+
+<style>
+  @import "tailwindcss";
+  .scocial-icon {
+    @apply p-1.5 p-2 w-9 h-9 flex items-center justify-center 
+    bg-white border border-gray-200 rounded-full hover:bg-gray-300 hover:text-white transition-all duration-200;
+  }
+</style>
