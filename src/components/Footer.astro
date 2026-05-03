@@ -1,16 +1,24 @@
 ---
+/* social-icons */
 import Container from "./Container.astro";
 import Facebook from "../img/social-icons/facebook.svg";
 import Instagram from "../img/social-icons/instagram.svg";
 import X from "../img/social-icons/x.svg";
 import Github from "../img/social-icons/github.svg";
+
+/* payment-logos */
+import Gpay from "../img/payment-logos/Gpay.svg";
+import Visa from "../img/payment-logos/visa.svg";
+import Mastercard from "../img/payment-logos/mastercard.svg";
+import PayPal from "../img/payment-logos/paypal.svg";
+import Pay from "../img/payment-logos/pay.svg";
 ---
 
-<div class="bg-[#F0F0F0]">
+<div class="bg-[#F0F0F0] pt-20">
   <Container class="py-8">
-    <div class="footer-top">
+    <div class="footer-top ">
       <div class="logo">
-        <h1 class="text-2xl font-bold  text-3xl">Shop.co</h1>
+        <h1 class="text-2xl font-bold text-3xl">Shop.co</h1>
         <p class="text-gray-600 mt-4">
           We have clothes that suits your style and which you’re proud to wear.
           From women to men.
@@ -58,7 +66,9 @@ import Github from "../img/social-icons/github.svg";
           </li>
         </ul>
       </div>
-      <div class="footer-links mt-6 grid grid-cols-2 gap-y-5 gap-x-4 lg:flex lg:justify-between lg:flex-wrap">
+      <div
+        class="footer-links mt-6 grid grid-cols-2 gap-y-5 gap-x-4 lg:flex lg:justify-between lg:flex-wrap"
+      >
         <div class="link-group">
           <h2 class="text-lg font-semibold mb-4">Company</h2>
           <ul class="text-gray-600">
@@ -99,14 +109,31 @@ import Github from "../img/social-icons/github.svg";
     </div>
     <div class="footer-down">
       <hr class="my-6 border-t border-gray-300" />
+      <div class="flex flex-col md:flex-row items-center justify-between ">
+        <div class="text-center text-gray-600 text-sm">
+          Shop.co © 2000-2021, All rights reserved
+        </div>
+        <div class="payment-logos">
+          <ul class="mt-4 md:mt-0 flex items-center justify-center gap-2">
+            <li ><a href="#" target="_blank" rel="noopener noreferrer" class="payment-logo"><Visa  class="w-full h-full"/></a></li>
+            <li ><a href="#" target="_blank" rel="noopener noreferrer"class="payment-logo"><Mastercard class="w-full h-full"/></a></li>
+            <li ><a href="#" target="_blank" rel="noopener noreferrer" class="payment-logo"><PayPal class="w-full h-full" /></a></li>
+            <li ><a href="#" target="_blank" rel="noopener noreferrer" class="payment-logo"><Pay class="w-full h-full"/></a></li>
+            <li ><a href="#" target="_blank" rel="noopener noreferrer" class="payment-logo"><Gpay class="w-full h-full"/></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </Container>
 </div>
 
 <style>
   @import "tailwindcss";
+  .payment-logo{
+@apply flex items-center justify-center bg-white p-1.5 w-10 h-7 md:w-11.5 md:h-7.5 rounded-md shadow-sm hover:bg-gray-300 transition-all duration-200
+  }
   .scocial-icon {
-    @apply p-1.5 p-2 w-9 h-9 flex items-center justify-center 
-    bg-white border border-gray-200 rounded-full hover:bg-gray-300 hover:text-white transition-all duration-200;
+    @apply  p-2 w-9 h-9 flex items-center justify-center 
+    bg-white border border-gray-200 rounded-full hover:bg-gray-300 hover:text-white transition-all duration-200 shadow-sm;
   }
 </style>
