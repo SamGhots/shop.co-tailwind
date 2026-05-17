@@ -3,6 +3,7 @@ import Container from "./Container.astro";
 import Button from "./Button.astro";
 import HeaderImg from "../img/header/header-hero.png";
 import diamondImg from "../img/shape/diamond.svg";
+import { Image } from "astro:assets";
 ---
 
 <header class="bg-[var(--my-color-secondary)]">
@@ -15,7 +16,7 @@ import diamondImg from "../img/shape/diamond.svg";
         class="header-top flex flex-col lg:items-start lg:text-start md:max-w-140 md:mx-auto lg:mx-0 md:items-center md:text-center"
       >
         <h1
-          class="mb-4 text-[var(--my-color-accent)] text-[clamp(1.8rem,3.5vw,4rem)] sm:text-[clamp(2.4rem,3.5vw,4rem)] lg:text-[clamp(1.8rem,3.2vw,4rem)] leading-[1]"
+          class="mb-4 text-[clamp(1.8rem,3.5vw,4rem)] sm:text-[clamp(2.4rem,3.5vw,4rem)] lg:text-[clamp(1.8rem,3.2vw,4rem)] leading-[1]"
         >
           FIND CLOTHES THAT MATCHES YOUR STYLE
         </h1>
@@ -31,7 +32,7 @@ import diamondImg from "../img/shape/diamond.svg";
       </div>
       <div class="header-bottom mt-8">
         <ul
-          class=" text-[var(--my-color-accent)] flex flex-wrap justify-center lg:justify-between lg:max-w-140 divide-gray-300 divide-x-1 divide-y-0 gap-y-2"
+          class="text-[var(--my-color-accent)] flex flex-wrap justify-center lg:justify-between lg:max-w-140 divide-gray-300 divide-x-1 divide-y-0 gap-y-2"
         >
           <li class="stats-item">
             <strong>200+</strong>
@@ -59,10 +60,18 @@ import diamondImg from "../img/shape/diamond.svg";
     <div
       class="header-right flex-grow flex-shrink-1 lg:basis-[35%] xl:basis-[54%] self-end relative"
     >
-      <img src={diamondImg.src} alt="small diamond" class="small-diamond" />
-      <img src={diamondImg.src} alt="Big diamond" class="big-diamond" />
-      <img
-        src={HeaderImg.src}
+      <Image 
+      width={30}
+      height={30}
+      src={diamondImg} alt="small diamond" class="small-diamond" loading="eager" />
+      <Image 
+      width={50}
+      height={50}
+      src={diamondImg} alt="Big diamond" class="big-diamond" loading="eager" />
+      <Image
+        width={1440} height={900}
+        loading="eager"
+        src={HeaderImg}
         alt="A couple, man and woman, smiling while modeling stylish modern fashion apparel"
         class="w-full object-cover min-h-[400px] max-h-[800px]"
       />
@@ -85,11 +94,10 @@ import diamondImg from "../img/shape/diamond.svg";
     top: 10%;
     width: 50px;
     height: 50px;
-   /* 2. Media Query สำหรับช่วง 350px  เพราะตําเเหน่ง เพชล พื้นฐานเริ่มหลุดจากตําเเหน่งที่ควรจะเป็น*/
-   @media (min-width: 350px) and (max-width: 424.99px) {
+    /* 2. Media Query สำหรับช่วง 350px  เพราะตําเเหน่ง เพชล พื้นฐานเริ่มหลุดจากตําเเหน่งที่ควรจะเป็น*/
+    @media (min-width: 350px) and (max-width: 424.99px) {
       right: 12%;
       top: 10%;
-     
     }
 
     /* 3. Media Query สำหรับช่วง 425px > 639.99px */
@@ -97,8 +105,8 @@ import diamondImg from "../img/shape/diamond.svg";
       right: 12%;
       top: 10%;
 
-    width: clamp(50px, 12vw, 76px);
-    height: clamp(50px, 12vw, 76px);
+      width: clamp(50px, 12vw, 76px);
+      height: clamp(50px, 12vw, 76px);
     }
 
     /* 3. Tailwind Utility Classes สำหรับ Breakpoint ที่สูงขึ้น (ตั้งแต่ sm: 640px) */
@@ -112,19 +120,19 @@ import diamondImg from "../img/shape/diamond.svg";
     top: 35%;
     width: 30px;
     height: 30px;
-   /* 2. Media Query สำหรับช่วง 350px  เพราะตําเเหน่ง เพชล พื้นฐานเริ่มหลุดจากตําเเหน่งที่ควรจะเป็น*/
-   @media (min-width: 350px) and (max-width: 424.99px) {
+    /* 2. Media Query สำหรับช่วง 350px  เพราะตําเเหน่ง เพชล พื้นฐานเริ่มหลุดจากตําเเหน่งที่ควรจะเป็น*/
+    @media (min-width: 350px) and (max-width: 424.99px) {
       left: 8%;
-  top: 35%;
+      top: 35%;
     }
 
     /* 3. Media Query สำหรับช่วง 425px > 639.99px */
     @media (min-width: 425px) and (max-width: 639.99px) {
       left: 12%;
       top: 35%;
-      
-    width: clamp(30px, 7vw, 44px);
-    height: clamp(30px, 7vw, 44px);
+
+      width: clamp(30px, 7vw, 44px);
+      height: clamp(30px, 7vw, 44px);
     }
     @apply absolute  sm:top-[40%] sm:left-[14%] md:top-[40%] md:left-[14%] lg:top-[42%] lg:left-[6%] xl:top-[42%] xl:left-[6%] 
      sm:w-[44px] sm:h-[44px] md:w-[48px] md:h-[48px] lg:w-[40px] lg:h-[40px] xl:w-[56px] xl:h-[56px];

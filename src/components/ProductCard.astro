@@ -27,7 +27,7 @@ function getStarRating(rating: number) {
 }
 ---
 
-<li class="flex flex-col group cursor-pointer transition-all duration-300 md:hover:shadow-xl md:hover:-translate-y-2 rounded-2xl ">
+<li class="box flex flex-col group cursor-pointer transition-all duration-300 md:hover:shadow-xl md:hover:-translate-y-2 rounded-2xl ">
   {/* รูปภาพสินค้า */}
  <div class="relative w-full aspect-[1/1] overflow-hidden
   rounded-2xl 
@@ -43,7 +43,7 @@ function getStarRating(rating: number) {
   <div class="py-4 md:p-4">
     {/* ชื่อสินค้า */ }
     <h3
-      class="mt-1 font-bold text-[clamp(1rem,2vw,1.25rem)] truncate"
+      class="mt-1 !font-normal text-[clamp(1rem,2vw,1.25rem)] truncate"
       title={title}
     >
       {title}
@@ -58,15 +58,15 @@ function getStarRating(rating: number) {
     <section>
       {
         discountPercentage > 0 ? (
-          <div class="flex flex-wrap items-center mt-1 gap-x-2 gap-y-1 ">
+          <div class="flex flex-wrap items-center mt-1 gap-x-2 gap-y-0 ">
             {/* ราคาขาย */}
-            <p class="text-[clamp(1.25rem,3vw,1.5rem)] font-bold">
+            <p class="text-[clamp(1.25rem,2vw,1.5rem)] font-bold">
               ${(fullPrice - fullPrice * (discountPercentage / 100)).toFixed(2)}
             </p>
            {/* กลุ่มราคาเต็มและส่วนลด */}
             <div class="flex items-center gap-2">
               {/* ราคาเต็ม (ขีดฆ่า) */}
-              <p class=" text-[clamp(1.2rem,3vw,1.5rem)] font-bold  text-gray-500 line-through">
+              <p class=" text-[clamp(1.2rem,2vw,1.5rem)] font-bold  text-gray-500 line-through">
                 ${fullPrice}
               </p>
               {/* ส่วนลด */}
@@ -82,3 +82,12 @@ function getStarRating(rating: number) {
     </section>
   </div>
 </li>
+<style>
+  @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+ .box {
+  animation: fadeIn 0.5s ease forwards;
+}
+</style>

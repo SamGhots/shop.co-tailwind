@@ -27,7 +27,7 @@
 
 @font-face {
   font-family: 'Integral CF';
-  src: url('/fonts/Fontspring-DEMO-integralcf-bold.otf') format('opentype');
+  src: url('./fonts/Fontspring-DEMO-integralcf-bold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -54,9 +54,11 @@
 body {
   font-family: var(--font-display);
 }
-
-h1 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  font-weight: 900; 
+  text-transform: uppercase; 
+  color: var(--my-color-accent);
 }
 
 
@@ -75,6 +77,8 @@ Button {
 
 @layer components {
   .section-title {
-    @apply uppercase text-center text-3xl md:text-5xl font-bold;
+    @apply uppercase text-center text-3xl md:text-5xl ;
   }
 }
+
+

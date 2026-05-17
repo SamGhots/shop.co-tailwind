@@ -1,80 +1,83 @@
-const productSections = document.querySelectorAll(".product-section"); 
+const productSections = document.querySelectorAll(".product-section");
 
 productSections.forEach((group, index) => {
-//--------------ตัวแปรเก็บค่า----------------
-  // 1. ดึงปุ่ม
-  let viewAllBtn = group.querySelector(".view-all-button");
-  
-  // 2. ดึงรายการสินค้า
-  let boxes = [...group.querySelectorAll(".product-list > *")];
-  // 3. เก็บค่าจำนวนกล่องที่แสดงอยู่ในปัจจุบัน (เริ่มต้นคือ 0)
-  let currentItems = 0; 
-//--------------เตรียมฟังก์ชั่น----------------
-// ฟังก์ชันหาจำนวนคอลัมน์ปัจจุบัน
-      const getColumnCount = () => {
-        // 1. อ้างอิงถึงตัว Element ที่เป็น Grid Container
-        let productGrid = group.querySelector(".product-list");
+  //--------------ตัวแปรเก็บค่า----------------
+  let viewAllBtn = group.querySelector(".view-all-button"); // 1. ดึงปุ่ม
+  let boxes = [...group.querySelectorAll(".product-list > *")]; // 2. ดึงรายการสินค้า
+  let currentItems = 0; // 3. เก็บค่าจำนวนกล่องที่แสดงอยู่ในปัจจุบัน (เริ่มต้นคือ 0)
+  let isLoading = false; // ตัวแปรสำหรับป้องกันการคลิกซ้ำขณะกำลังโหลด
+  //--------------เตรียมฟังก์ชั่น----------------
+  // ฟังก์ชันหาจำนวนคอลัมน์ปัจจุบัน
+  const getColumnCount = () => {
+    // 1. อ้างอิงถึงตัว Element ที่เป็น Grid Container
+    let productGrid = group.querySelector(".product-list");
 
-        // 2. window.getComputedStyle(container)
-        // สั่งให้เบราว์เซอร์ไป "ดู Style จริงๆ" ที่กำลังใช้งานอยู่ (ไม่ใช่แค่ที่เราเขียนในไฟล์ CSS)
+    // 2. window.getComputedStyle(container)
+    // สั่งให้เบราว์เซอร์ไป "ดู Style จริงๆ" ที่กำลังใช้งานอยู่ (ไม่ใช่แค่ที่เราเขียนในไฟล์ CSS)
 
-        // 3. .getPropertyValue("grid-template-columns")
-        // เจาะจงดึงค่า "รูปแบบคอลัมน์" ออกมา เช่น "320px 320px 320px"
-        let gridConfig = window
-          .getComputedStyle(productGrid)
-          .getPropertyValue("grid-template-columns");
+    // 3. .getPropertyValue("grid-template-columns")
+    // เจาะจงดึงค่า "รูปแบบคอลัมน์" ออกมา เช่น "320px 320px 320px"
+    let gridConfig = window
+      .getComputedStyle(productGrid)
+      .getPropertyValue("grid-template-columns");
 
-        // 4. .split(" ").length
-        // ตัดช่องว่างแล้วนับจำนวนชิ้น (เช่น ได้ 3 ชิ้น ก็คือมี 3 คอลัมน์)
-        return gridConfig.split(" ").length;
-      };
-// ฟังก์ชันสำหรับแสดงกล่องตามจำนวนที่ต้องการ
-      const showItems = (count) => {
-        let target = currentItems + count; // คือถ้าอยากเพิ่ม 3 กล่อง จากที่มี 0 ก็จะเป็น 3
-        for (let i = currentItems; i < target; i++) {
-          // เริ่มต้นคือ 0  ก็ทํางานถึง 3 ก็หลุดloop
-          if (boxes[i]) {
-            boxes[i].style.display = "flex";
-          }
-        }
-        currentItems = Math.min(target, boxes.length);
-
-        // จัดการปุ่ม Load More
-        if (currentItems >= boxes.length) {
-          viewAllBtn.innerHTML = 'View less <i class="fa-solid fa-chevron-up"></i>';
-        } else {
-          viewAllBtn.innerHTML = 'View all <i class="fa-solid fa-chevron-down"></i>';
-        }
-      };
- // ------------------------ ขั้นตอนการทำงาน ----------------------------
- let initialColumns = getColumnCount(); // หาจำนวนคอลัมน์ตอนเริ่มต้น
- showItems(initialColumns); //ส่งค่าคอลัมน์ปัจจุบันเข้าไปในฟังก์ชันเพื่อแสดงกล่องให้เต็มแถวแรก
- viewAllBtn.onclick = () => {
-  let columnCount = getColumnCount();
-  let previousCount = currentItems;
-
-  if (currentItems < boxes.length) {
-    // --- โหมดโชว์เพิ่ม ---
-    showItems(columnCount);
-    if (boxes[previousCount]) {
-      boxes[previousCount].scrollIntoView({ behavior: "smooth", block: "center" });
+    // 4. .split(" ").length
+    // ตัดช่องว่างแล้วนับจำนวนชิ้น (เช่น ได้ 3 ชิ้น ก็คือมี 3 คอลัมน์)
+    return gridConfig.split(" ").length;
+  };
+  // ฟังก์ชันสำหรับแสดงกล่องตามจำนวนที่ต้องการ
+  const showItems = (count) => {
+    let target = currentItems + count; // คือถ้าอยากเพิ่ม 3 กล่อง จากที่มี 0 ก็จะเป็น 3
+    for (let i = currentItems; i < target; i++) {
+      // เริ่มต้นคือ 0  ก็ทํางานถึง 3 ก็หลุดloop
+      if (boxes[i]) {
+        boxes[i].style.display = "flex";
+      }
     }
-  } else {
-    // --- โหมด Show Less ---
-    const waitTime = window.innerWidth < 768 ? 800 : 500; // ปรับเวลาให้เร็วขึ้นนิดนึงจะได้ไม่รู้สึกว่ารอนานไป
+    currentItems = Math.min(target, boxes.length);
 
-    // เลื่อนไปที่หัวข้อของกลุ่มสินค้าตัวเอง (ไม่ใช่บนสุดของเว็บ)
-    group.scrollIntoView({ behavior: "smooth", block: "start" });
+    // จัดการปุ่ม Load More
+    if (currentItems >= boxes.length) {
+      viewAllBtn.innerHTML = 'View less <i class="fa-solid fa-chevron-up"></i>';
+    } else {
+      viewAllBtn.innerHTML =
+        'View all <i class="fa-solid fa-chevron-down"></i>';
+    }
+  };
+  // ------------------------ ขั้นตอนการทำงาน ----------------------------
+  let initialColumns = getColumnCount(); // หาจำนวนคอลัมน์ตอนเริ่มต้น
+  showItems(initialColumns); //ส่งค่าคอลัมน์ปัจจุบันเข้าไปในฟังก์ชันเพื่อแสดงกล่องให้เต็มแถวแรก
+  viewAllBtn.onclick = () => {
+    if (isLoading) return;
+    let columnCount = getColumnCount();
+    let previousCount = currentItems;
+    if (currentItems < boxes.length) {
+      isLoading = true;
+      viewAllBtn.style.pointerEvents = "none";
+      viewAllBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i> loading...'; // แสดงสถานะให้ User รู้
+      setTimeout(() => {
+        showItems(columnCount); // โหลดเพิ่ม 1 แถวเสมอ
+        isLoading = false;
+        viewAllBtn.style.pointerEvents = "auto"; // เปิดการคลิกอีกครั้ง
+      }, 500); // ปรับเวลาตามความเหมาะสม (500ms คือครึ่งวินาที)
+      // --- โหมดโชว์เพิ่ม ---
+    } else {
+      // --- โหมด Show Less ---
+      const waitTime = window.innerWidth < 768 ? 800 : 500; // ปรับเวลาให้เร็วขึ้นนิดนึงจะได้ไม่รู้สึกว่ารอนานไป
 
-    setTimeout(() => {
-      boxes.forEach(box => box.style.display = "none");
-      currentItems = 0;
-      showItems(columnCount); // โชว์แถวแรกกลับมา
-    }, waitTime);
-  }
-};
-    
-let resizeTimer;
+      // เลื่อนไปที่หัวข้อของกลุ่มสินค้าตัวเอง (ไม่ใช่บนสุดของเว็บ)
+      group.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      setTimeout(() => {
+        boxes.forEach((box) => (box.style.display = "none"));
+        currentItems = 0;
+        showItems(columnCount); // โชว์แถวแรกกลับมา
+      }, waitTime);
+    }
+  };
+
+  let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
@@ -95,5 +98,3 @@ let resizeTimer;
     }, 250);
   });
 });
-
-
